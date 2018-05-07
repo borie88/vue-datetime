@@ -124,7 +124,10 @@ export default {
   computed: {
     inputValue () {
       const format = this.format || (this.type === 'date' ? DateTime.DATE_MED : DateTime.DATETIME_MED)
-
+      if (this.type === 'time' && this.datetime) {
+        const f = DateTime.TIME_24_SIMPLE
+        return this.datetime ? this.datetime.setZone(this.zone).toLocaleString(f) : ''
+      }
       return this.datetime ? this.datetime.setZone(this.zone).toLocaleString(format) : ''
     },
     popupDate () {
